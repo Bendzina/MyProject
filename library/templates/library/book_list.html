@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Books</h1>
+    <div class="book-list">
+        {% for book in books %}
+        <div class="book-item">
+            <h2>{{ book.title }}</h2>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+            <p><strong>Category:</strong> {{ book.category.name }}</p>
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            <p><strong>Summary:</strong> {{ book.summary }}</p>
+            <p><strong>Price:</strong> ${{ book.price }}</p>
+            {% if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover">
+            {% endif %}
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</body>
+</html>
