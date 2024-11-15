@@ -5,6 +5,13 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center mb-4">Books</h1>
+
+    <!-- Filter Form -->
+    <form method="get" class="mb-4">
+        {{ filter.form.as_p }}
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
     <div class="row">
         {% for book in books %}
         <div class="col-md-4 mb-4">
@@ -18,7 +25,6 @@
                     <p class="card-text"><strong>Published Date:</strong> {{ book.published_date }}</p>
                     <p class="card-text"><strong>Category:</strong> {{ book.category.name }}</p>
                     <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
-                    <!-- <p class="card-text"><strong>Summary:</strong> {{ book.summary }}</p> -->
                     <p class="card-text"><strong>Price:</strong> ${{ book.price }}</p>
                 </div>
             </div>
@@ -30,9 +36,7 @@
                 <a href="#" class="show-more">Show More</a>
             </p>
         </div>
-        
         {% endfor %}
     </div>
 </div>
 {% endblock %}
-

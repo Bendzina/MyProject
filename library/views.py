@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Book
 from.forms import BookForm
+from .filters import BookFilter
 
 def book_list(request):
     books = Book.objects.all()
@@ -15,6 +16,5 @@ def add_book(request):
             return redirect('book_list')
     else:
         form = BookForm()
-    return render(request, 'library/add_book.html', {'form': form})
-
-
+    return render(request, 'library/add_book.html', {'form': form}
+                )
