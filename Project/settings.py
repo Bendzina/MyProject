@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+CRYSPY_TEMPLATE_PACK ='boostrap5'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'library'
+    # 'cryspy_forms',
+    # 'cryspy_bootstrap5',
 ]
 
 MIDDLEWARE = [

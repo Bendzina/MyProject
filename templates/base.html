@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Project{% endblock %}</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <!-- <h1>Welcome to My Project</h1> -->
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">Home</a>
+                <a class="nav-link" href="/books">Books</a>
+               
+            </nav>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white text-center py-2">
+        <p>&copy; 2024 My Project</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".show-more").forEach(function (btn) {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const summaryText = this.previousElementSibling;
+                    const fullText = this.previousElementSibling.previousElementSibling;
+    
+                    if (summaryText.classList.contains("d-none")) {
+                        summaryText.classList.remove("d-none");
+                        fullText.classList.add("d-none");
+                        this.textContent = "Show More";
+                    } else {
+                        summaryText.classList.add("d-none");
+                        fullText.classList.remove("d-none");
+                        this.textContent = "Show Less";
+                    }
+                });
+            });
+        });
+    </script>
+    
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

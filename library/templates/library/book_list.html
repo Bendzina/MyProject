@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book List</title>
-</head>
-<body>
-    <h1>Books</h1>
-    <div class="book-list">
+{% extends "base.html" %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Books</h1>
+    <div class="row">
         {% for book in books %}
-        <div class="book-item">
-            <h2>{{ book.title }}</h2>
-            <p><strong>Author:</strong> {{ book.author }}</p>
-            <p><strong>Published Date:</strong> {{ book.published_date }}</p>
-            <p><strong>Category:</strong> {{ book.category.name }}</p>
-            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-            <p><strong>Summary:</strong> {{ book.summary }}</p>
-            <p><strong>Price:</strong> ${{ book.price }}</p>
-            {% if book.cover_image %}
-                <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover">
-            {% endif %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+                {% if book.cover_image %}
+                    <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }} cover" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                    <p class="card-text"><strong>Published Date:</strong> {{ book.published_date }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ book.category.name }}</p>
+                    <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
+                    <!-- <p class="card-text"><strong>Summary:</strong> {{ book.summary }}</p> -->
+                    <p class="card-text"><strong>Price:</strong> ${{ book.price }}</p>
+                </div>
+            </div>
         </div>
-        <hr>
+        <div class="card-text">
+            <p>
+                <span class="summary-text">{{ book.summary|truncatechars:100 }}</span>
+                <span class="summary-full-text d-none">{{ book.summary }}</span>
+                <a href="#" class="show-more">Show More</a>
+            </p>
+        </div>
+        
         {% endfor %}
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
+
