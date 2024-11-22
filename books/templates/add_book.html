@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Add Book{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Add New Book</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            {{ form.author.label_tag }}
+            {{ form.author }}
+        </div>
+        <div class="mb-3">
+            {{ form.published_date.label_tag }}
+            {{ form.published_date }}
+        </div>
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+        </div>
+        <div class="mb-3">
+            {{ form.category.label_tag }}
+            {{ form.category }}
+        </div>
+        <div class="mb-3">
+            {{ form.price.label_tag }}
+            {{ form.price }}
+        </div>
+        <div class="mb-3">
+            {{ form.cover_image.label_tag }}
+            {{ form.cover_image }}
+        </div>
+        <button type="submit" class="btn btn-success">Add Book</button>
+    </form>
+</div>
+{% endblock %}
