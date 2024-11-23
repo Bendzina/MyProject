@@ -31,7 +31,7 @@
             <div class="col-md-4 mb-4">
                 <div class="card" style="width: 18rem;">
                     {% if book.cover_image %}
-                        <img src="{{ book.cover_image.url }}" class="card-img-top" alt="{{ book.title }} cover" style="height: 200px; object-fit: cover;">
+                        <img src="{{ book.cover_image.url }}" class="card-img-top" alt="Book Cover" style="height: 200px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ book.title }}</h5>
@@ -40,7 +40,7 @@
                         <p class="card-text"><strong>Category:</strong> {{ book.category.name }}</p>
                         <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
                         <p class="card-text"><strong>Price:</strong> ${{ book.price }}</p>
-                        
+
                     
                         <p>
                             <span class="summary-text">{{ book.description|truncatechars:100 }}</span>
