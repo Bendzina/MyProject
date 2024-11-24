@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import UserRegistrationForm
 from django.contrib.auth.views import LoginView, LogoutView
-
+from django.contrib.auth.decorators import login_required
 def register_view(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = RegisterForm()
-    return render(request, 'registration/register.html', {'form': form})
+        form = UserRegistrationForm()
+    return render(request, 'register.html', {'form': form})
 
 
 class CustomLoginView(LoginView):
@@ -18,3 +18,7 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     next_page = 'login'
+
+@login_required
+def dashboard_view(request):
+    return render(request, 'dashboard.html')
