@@ -26,7 +26,7 @@ urlpatterns = [
     path('books/', include('books.urls')),
     path('', lambda request: redirect('books/')),
     path('users/', include('users.urls', namespace='users')),
-    path('users/', include('django.contrib.auth.urls'))
+    # path('users/', include('django.contrib.auth.urls'))
 
 ]
 if settings.DEBUG:

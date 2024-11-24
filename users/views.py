@@ -3,6 +3,9 @@ from .forms import UserRegistrationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('users:dashboard')  # თუ მომხმარებელი ავტორიზებულია, გადადის დეშბორდზე
+    
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -10,7 +13,9 @@ def register_view(request):
             return redirect('login')
     else:
         form = UserRegistrationForm()
+
     return render(request, 'register.html', {'form': form})
+
 
 
 class CustomLoginView(LoginView):
@@ -22,3 +27,5 @@ class CustomLogoutView(LogoutView):
 @login_required
 def dashboard_view(request):
     return render(request, 'dashboard.html')
+
+
