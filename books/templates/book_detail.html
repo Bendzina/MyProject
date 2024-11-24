@@ -37,7 +37,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ related_book.title }}</h5>
                         <p class="card-text">{{ related_book.author }}</p>
-                        <a href="{% url 'book_detail' related_book.pk %}" class="btn btn-info">View Details</a>
+                        <a href="{% url 'books:book_detail' book.pk %}" class="btn btn-info">View Details</a>
                     </div>
                 </div>
             </div>
