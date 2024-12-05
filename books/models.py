@@ -14,6 +14,7 @@ class Category(models.Model):
 
 class Books(models.Model):
     title = models.CharField(max_length=200)
+    stock =models.PositiveIntegerField(default=0)
     author = models.CharField(max_length=100)
     published_date = models.DateField()
     description = models.TextField()

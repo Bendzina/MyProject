@@ -35,6 +35,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Application definition
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'users',
+    'orders',
     'crispy_forms',
     'crispy_bootstrap5'
 ]
