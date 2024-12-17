@@ -49,7 +49,8 @@
             <h4>Total: ${{ total_amount}}</h4>
             <div>
                 <a href="{% url 'books:book_list' %}" class="btn btn-primary">Continue Shoping</a>
-                <a href="#" class="btn btn-success">Proceed To Checkout</a>
+                <a href="{% url 'orders:checkout' %}" class="btn btn-success">Proceed To Checkout</a>
+
             </div>
         </div>
     {% else %}

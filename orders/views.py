@@ -4,7 +4,9 @@ from books.models import Books
 from django.contrib.auth.decorators import login_required
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 @login_required(login_url='/users/login/')
 
@@ -89,3 +91,20 @@ def delete_cart_item(request, pk):
     cart_item.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required
+def checkout(request):
+    cart = ensure_cart_exists(request.user) 
+    cart_items = cart.cartitem_set.all()
+
+    if not cart_items.exists():
+        return redirect('orders:cart')
+
+    total_amount = sum(item.total_price for item in cart_items)
+    cart_items.delete()
+
+    return render(request, 'orders/checkout_success.html', {'total_amount': total_amount})
+
+@login_required
+def ensure_cart_exists(user):
+    cart, created = Cart.objects.get_or_create(user=user)
+    return cart

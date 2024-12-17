@@ -8,52 +8,66 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def book_list(request):
-    book_list = Books.objects.all().order_by('id')
-    paginator = Paginator(book_list, 10)  
+    query = request.GET.get('q', '').strip()  # Title search
+    category = request.GET.get('category', '').strip()  # Selected category
+
+    book_list = Books.objects.all()
+
+    # Apply search filter
+    if query:
+        book_list = book_list.filter(title__icontains=query)
+
+    # Apply category filter
+    if category:
+        book_list = book_list.filter(category_id=category)
+
+    paginator = Paginator(book_list, 3)  # Change pagination size as needed
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'book_list.html', {'page_obj': page_obj})
+
+    return render(request, 'book_list.html', {'page_obj': page_obj, 'query': query, 'category': category})
+
 
 class BooksView(TemplateView):
     template_name = 'book_list.html'
 
     def get(self, request, *args, **kwargs):
-        # Fetch filters from request
-        product_name = request.GET.get('q')  # Search query for book title
-        category = request.GET.getlist('category')  # Categories selected for filtering
+        # Get query parameters
+        query = request.GET.get('q', '').strip()  # Search query for book title
+        category = request.GET.get('category', '').strip()  # Selected category
 
-        # Filtering based on search query
-        if product_name:
-            books = Books.objects.filter(title__icontains=product_name)
-        elif category:
-            books = Books.objects.filter(category__in=category)
-        else:
-            books = Books.objects.all()
+        # Base queryset
+        books = Books.objects.all()
 
-        # Pagination setup
+        # Apply title filter
+        if query:
+            books = books.filter(title__icontains=query)
+
+        # Apply category filter
+        if category:
+            books = books.filter(category_id=category)
+
+        # Debugging
+        print("Filtered books count:", books.count())
+        print("Queryset:", books)
+
+        # Pagination
         paginator = Paginator(books, 10)
-        try:
-            page_number = request.GET.get('page')
-            books_page = paginator.page(page_number)
-        except PageNotAnInteger:
-            books_page = paginator.page(1)
-        except EmptyPage:
-            books_page = paginator.page(paginator.num_pages)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-        # Get all categories for filtering
-        categories = Category.objects.all()
-        
-        # Prepare context data
+        # Get all categories for dropdown
+        all_categories = Category.objects.all()
+
+        # Context
         context = {
-            'page_obj': books_page,
-            'categories': categories,  
+            'page_obj': page_obj,
+            'categories': all_categories,
+            'query': query,
+            'selected_category': category,
         }
-
         return render(request, self.template_name, context)
 
-def book_detail(request, pk):
-    book = get_object_or_404(Books, pk=pk)
-    return render(request, 'book_detail.html', {'book': book})
 
 class BooksDetailView(DetailView):
     template_name = 'book_detail.html'
@@ -69,14 +83,7 @@ class BooksDetailView(DetailView):
         return context
 
 
-def add_book(request):
-    if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-    else:
-        form = BookForm()
-    return render(request, 'add_book.html', {'form': form})
+
 
 class AddBook(FormView):
     form_class = BookForm
