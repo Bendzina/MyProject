@@ -211,5 +211,28 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* ყველა კარდი ერთნაირად დაჭიმული იქნება */
+    height: 100%; 
+}
+
+/* .form-control {
+    width: 100%;
+    padding: 10px;
+}
+
+.btn {
+    width: 100%;
+} */
+.form-control {
+    width: 100%;
+    padding: 10px;
+}
+
+.btn {
+    width: 100%;
+}
+
+.btn-primary {
+    font-size: 16px;
+    padding: 12px 24px;
+    width: 100%; /* Optional to make the button fill the container */
 }

@@ -8,35 +8,48 @@
     <h1 class="text-center mb-4">Books</h1>
 
     <!-- Filter Form -->
-    <form method="get" action="{% url 'books:book_list' %}" class="mb-4">
-    <div class="row">
-        <div class="col-md-3">
-            <input 
-                type="text" 
-                name="q" 
-                class="form-control" 
-                placeholder="Search by title" 
-                value="{{ query }}"> 
-        </div>
-        <div class="col-md-4">
-            <select name="category" class="form-control">
-                <option value="">All Categories</option>
-                {% for category in categories %}
-                    <option value="{{ category.id }}" 
-                        {% if category.id|stringformat:"s" == selected_category %}
-                            selected
-                        {% endif %}>
-                        {{ category.name }}
-                    </option>
-                {% endfor %}
-            </select>
+    
+    <form class="d-flex mb-4" method="get" action="{% url 'books:book_list' %}">
+        <div class="row w-100">
+            <!-- Search input field -->
+            <div class="col-md-3 mb-3">
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="form-control" 
+                    placeholder="search"
+                    value="{{ query }}"
+                    style="font-size: 16px; padding: 12px 15px; height: 50px;">
+            </div>
             
+            <!-- Category select field -->
+            <div class="col-md-4 mb-3">
+                <select name="category" class="form-control" style="font-size: 16px; padding: 12px 15px; height: 50px;">
+                    <option value="">All</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" 
+                        {% if category.id|stringformat:"s" == selected_category|stringformat:"s" %}
+                                selected
+                            {% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Filter button -->
+            <div class="col-md-2 mb-3">
+                <button type="submit" 
+                    style="font-size: 16px; padding: 12px 20px; height: 50px; border-radius: 5px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);">
+                    Filter
+                </button>
+            </div>
         </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </div>
-    </div>
-</form>
+    </form>
+    
+    
+    
+
 
     
 
