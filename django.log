@@ -28,3 +28,4 @@
 [ERROR] [2024-12-22 11:01:21,518] [middleware] [Exception occurred: /books/add/ - ]
 [ERROR] [2024-12-22 11:01:38,136] [middleware] [Exception occurred: /books/add/ - 'block' tag with name 'title' appears more than once]
 [ERROR] [2024-12-22 11:10:23,600] [middleware] [Exception occurred: /books/add/ - ]
+[ERROR] [2025-01-10 07:10:49,519] [middleware] [Exception occurred: /books/add/ - ]
